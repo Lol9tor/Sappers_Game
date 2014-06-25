@@ -16,18 +16,63 @@ select {
 }
 .default {
     background: url("images/default.jpg") no-repeat;
-    height: 54px;
-    width: 54px;
+    height: 50px;
+    width: 50px;
+}
+.default_r {
+    background: url("images/default_r.jpg") no-repeat;
+    height: 50px;
+    width: 50px;
 }
 .unluck {
     background: url("images/unluck.jpg") no-repeat;
-    height: 54px;
-    width: 54px;
+    height: 50px;
+    width: 50px;
 }
 .luck {
     background: url("images/luck.jpg") no-repeat;
-    height: 54px;
-    width: 54px;
+    height: 50px;
+    width: 50px;
+}
+.luck_1 {
+    background: url("images/luck_1.jpg") no-repeat;
+    height: 50px;
+    width: 50px;
+}
+.luck_2 {
+    background: url("images/luck_2.jpg") no-repeat;
+    height: 50px;
+    width: 50px;
+}
+.luck_3 {
+    background: url("images/luck_3.jpg") no-repeat;
+    height: 50px;
+    width: 50px;
+}
+.luck_4 {
+    background: url("images/luck_4.jpg") no-repeat;
+    height: 50px;
+    width: 50px;
+}
+.luck_5 {
+    background: url("images/luck_5.jpg") no-repeat;
+    height: 50px;
+    width: 50px;
+}
+.luck_6 {
+    background: url("images/luck_6.jpg") no-repeat;
+    height: 50px;
+    width: 50px;
+}
+.luck_7 {
+    background: url("images/luck_7.jpg") no-repeat;
+    height: 50px;
+    width: 50px;
+}
+.luck_8 {
+    background: url("images/luck_8.jpg") no-repeat;
+    height: 50px;
+    width: 50px;
 }
 .btn {
     display: inline-block;
@@ -72,6 +117,7 @@ select {
 .flip-container {
     perspective: 1000;
 }
+
 /* переверните сторону при проведении мышью */
 .flip-container:hover .flipper, .flip-container.hover .flipper {
     transform: rotateY(180deg);
@@ -82,6 +128,7 @@ select {
     height: 480px;
 }
 
+/*---------------------------------------------*/
 /* здесь находится скорость перевертывания */
 .flipper {
     transition: 0.6s;

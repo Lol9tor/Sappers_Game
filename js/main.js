@@ -5,11 +5,14 @@ $(document).ready(function () {
     $('select').on('change', function(){    //redraw table
         $('table').remove();
         drawTable();
-});
+    });
     $('button').on('click', function(){ //restart game
         $('table').remove();
         drawTable();
     });
+    var ny=0,rotYINT;
+    var nameClass;
+    var flag = false;
     function drawTable () {
         $('#hint').html('');
         var size = $("#choiseSize").val();
@@ -26,7 +29,7 @@ $(document).ready(function () {
             }
         }
         $('#game_table').append(table);
-        for (var u=0; u<numberBomb;) { //add unluck box to table
+        for (var u=0; u<numberBomb;) { //add unluck boxes to table
             var index = Math.floor(Math.random() * Math.pow(size, 2));
             if ($('td').eq(index).attr('id') == 'unluck'){
                 continue;
@@ -44,12 +47,18 @@ $(document).ready(function () {
             }
         });
         $('td').on('click', function(){
+            if (flag){ // taboo click on box, while it animate
+                return false;
+            }
+            flag = true;
             if ($(this).attr('id') == 'unluck'){
                 $(this).addClass('unluck').removeClass('default');
                 $('#hint').html('YOU LOSE! Maybe luck next time...');
                 $('td').unbind('click')
                        .unbind('mousedown');
                 $('td[id=unluck]').addClass('unluck').removeClass('default');
+                flag = false;
+                //rotateBox(this);
                 return true;
             }
             var index = $(this).index();
@@ -78,51 +87,38 @@ $(document).ready(function () {
             if ($(this).parent().next().children().eq(index).next().attr('id') == 'unluck'){
                 number++;
             }
-            switch (number){
-                case 0: {
-                    $(this).addClass('luck').removeClass('default');
-                    break;
-                }
-                case 1:{
-                    $(this).addClass('luck_1').removeClass('default');
-                    break;
-                }
-                case 2:{
-                    $(this).addClass('luck_2').removeClass('default');
-                    break;
-                }
-                case 3:{
-                    $(this).addClass('luck_3').removeClass('default');
-                    break;
-                }
-                case 4:{
-                    $(this).addClass('luck_4').removeClass('default');
-                    break;
-                }
-                case 5:{
-                    $(this).addClass('luck_5').removeClass('default');
-                    break;
-                }
-                case 6:{
-                    $(this).addClass('luck_6').removeClass('default');
-                    break;
-                }
-                case 7:{
-                    $(this).addClass('luck_7').removeClass('default');
-                    break;
-                }
-                case 8:{
-                    $(this).addClass('luck_8').removeClass('default');
-                    break;
-                }
-            }
-            if ($('.default').length == numberBomb) {
+            nameClass = 'luck_'+number;
+            // ---------------------------------
+            // start effect coup image
+            rotateBox(this);
+            // end effect
+            // ---------------------------------
+            if ($('.default').length == (numberBomb+1)) {
                 $('#hint').html('YOU WIN! Can you play again?');
                 $('td').unbind('click')
-                       .unbind('mousedown');
+                    .unbind('mousedown');
                 $('td[id=unluck]').addClass('unluck').removeClass('default');
             }
         });
+    }
+    function rotateBox(element){
+        rotYINT=setInterval(function(){
+            ny=ny+2;
+            element.style.transform="rotateY(" + ny + "deg)";
+            element.style.webkitTransform="rotateY(" + ny + "deg)";
+            element.style.OTransform="rotateY(" + ny + "deg)";
+            element.style.MozTransform="rotateY(" + ny + "deg)";
+            if (ny==90) {
+                $(element).addClass(nameClass).removeClass('default');
+            }
+            if (ny==180) {
+                clearInterval(rotYINT);
+                if (ny>=180){ny=0}
+                $(element).unbind('click')
+                    .unbind('mousedown');
+                flag = false;
+            }
+        },5);
     }
 });
 
